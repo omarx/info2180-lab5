@@ -20,12 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('country');
     const searchBtn = document.getElementById('lookup');
     const result = document.getElementById('result');
-
+    const searchCitiesBtn=document.getElementById('lookup-cities');
     function createCitiesRow(data){
         return`<tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>${escapeHTML(data.name)}</td>
+                <td>${escapeHTML(data.district)}</td>
+                <td>${escapeHTML(data.population)}</td>
+             
         </tr>`
     }
     function createRow(data) {
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/world.php?country=${searchVal}`)
             .then(response => response.json())
             .then(resp => {
+                console.log(resp)
                 let tableHTML = '<table><thead><tr><th>Country Name</th><th>Continent</th><th>Independence</th><th>Head of State</th></tr></thead><tbody>';
                 resp.forEach(data => {
                     tableHTML += `<tr>
@@ -62,6 +64,24 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(err => console.error(`Error from the server: ${err}`));
     }
-
+    function searchCities(){
+        let searchVal = encodeURIComponent(searchInput.value);
+        fetch(`/world.php?country=${searchVal}&lookup=cities`)
+            .then(response=>response.json())
+            .then(resp=>{
+                let tableHTML = '<table><thead><tr><th> Name</th><th>District</th><th>Population</th></tr></thead><tbody>';
+                resp.forEach(data => {
+                    tableHTML += `<tr>
+                    <td>${data.name}</td>
+                    <td>${data.district}</td>
+                    <td>${data.population}</td>
+                </tr>`;
+                });
+                tableHTML += '</tbody></table>';
+                result.innerHTML = tableHTML;
+            })
+            .catch(err => console.error(`Error from the server: ${err}`));
+    }
     searchBtn.addEventListener('click', searchCountries);
+    searchCitiesBtn.addEventListener('click',searchCities);
 });
