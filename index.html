@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 	<head>
         <meta charset="utf-8">
 		<title>World Database Lookup</title>
@@ -17,15 +17,21 @@
 		</header>
 
 		<main>
-			<div id="controls">
-				<label for="country">Country:</label>
-				<input id="country" type="search" name="country" placeholder="Enter country name" />
-				<button id="lookup">Lookup</button>
-			</div>
-			
-			<div id="result">
-				<!-- countries will appear here -->
-			</div>
+			<main>
+				<div id="controls">
+					<div class="search-container">
+						<input id="country" type="search" name="country" placeholder="Enter country name" />
+					</div>
+					<div class="button-container">
+						<button id="lookup">Lookup Country</button>
+						<button id="lookup-cities">Lookup Cities</button>
+					</div>
+				</div>
+				<div id="result">
+					<!-- countries will appear here -->
+				</div>
+			</main>
+
 		</main>
 
 	</body>
